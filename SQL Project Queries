@@ -1,0 +1,98 @@
+🔹 1. Top Performing Sectors by Transactions
+
+SELECT Sector, SUM(Transactions) AS Total_Transactions
+FROM wps_clients
+GROUP BY Sector
+
+ORDER BY Total_Transactions DESC;
+
+Observation / Reference for Visuals:
+
+Construction and Logistics sectors usually top the list.
+
+Use a bar chart to show sector vs total transactions.
+
+🔹 2. Average Payout per Employee by Sector
+
+SELECT Sector, 
+       ROUND(AVG(Monthly_Payout / Employees), 2) AS Avg_Payout_Per_Employee
+FROM wps_clients
+GROUP BY Sector
+ORDER BY Avg_Payout_Per_Employee DESC;
+
+Observation / Reference for Visuals:
+
+Logistics and IT sectors often have higher payout per employee.
+
+Visual: column chart or KPI card showing avg payout per employee per sector.
+
+🔹 3. Regional Client Distribution
+
+SELECT Region, COUNT(Client_ID) AS Total_Clients
+FROM wps_clients
+GROUP BY Region
+ORDER BY Total_Clients DESC;
+Observation / Reference for Visuals:
+
+Dubai may have the highest number of clients.
+
+Visual: pie chart or map visual to show client distribution by region.
+
+🔹 4. Monthly Total Transactions (Trend)
+
+SELECT Month, SUM(Transactions) AS Total_Transactions
+FROM wps_clients
+GROUP BY Month
+ORDER BY FIELD(Month, 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+Observation / Reference for Visuals:
+
+Track seasonal trends; January is sample month here.
+
+Visual: line chart showing monthly transaction trends.
+
+🔹 5. Sector Share Percentage of Total Transactions
+
+SELECT Sector, 
+       ROUND(SUM(Transactions) * 100.0 / (SELECT SUM(Transactions) FROM wps_clients), 2) AS Percentage_Share
+FROM wps_clients
+GROUP BY Sector
+ORDER BY Percentage_Share DESC;
+Observation / Reference for Visuals:
+
+Shows which sectors contribute most to WPS adoption.
+
+Visual: donut chart or 100% stacked bar chart.
+
+🔹 6. Average Employees per Sector
+
+SELECT Sector, ROUND(AVG(Employees), 2) AS Avg_Employees
+FROM wps_clients
+GROUP BY Sector
+ORDER BY Avg_Employees DESC;
+Observation / Reference for Visuals:
+
+Helps identify large vs small companies by sector.
+
+Visual: bar chart or scatter plot.
+
+🔹 7. Top 5 Companies by Monthly Payout
+
+SELECT Company_Name, Monthly_Payout
+FROM wps_clients
+ORDER BY Monthly_Payout DESC
+LIMIT 5;
+Observation / Reference for Visuals:
+
+Highlight top clients contributing to revenue.
+
+Visual: table or bar chart.
+
+🧾 Insights (from the dataset)
+
+Sector Performance: Construction (highest transactions), followed by Logistics and Retail.
+
+Average Payout per Employee: Highest in Logistics and IT, lowest in Services.
+
+Regional Distribution: Dubai and Abu Dhabi dominate client numbers; Ajman and Sharjah growing steadily.
+
+Top Companies: Al Noor Contracting, Desert Logistics, and Metro Electrics contribute most to payouts.
